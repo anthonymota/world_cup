@@ -4,8 +4,6 @@ const { url } = require('inspector');
 const { type, hostname } = require('os');
 const readXlsxFile = require('read-excel-file/node');
 const { readSheetNames } = require('read-excel-file/node');
-const app = express();
-
 
 const options2 = {
   method: 'POST',
@@ -19,31 +17,32 @@ const dataz = JSON.stringify({
   password: 'Zacatecas!415',
 });
 
-//const reqq = http.request(
-//  'http://api.cup2022.ir/api/v1/user/login',
-//  options2,
-//  (ress) => {
-//    let rawData = '';
-//    ress.on('data', (dta) => {
-//      rawData += dta;
-//      const token = JSON.parse(rawData).data.token;
-//      console.log(token);
-//    });
-//  }
-//);
-//reqq.write(dataz);
-//reqq.end();
+/*const reqq = http.request(
+  'http://api.cup2022.ir/api/v1/user/login',
+  options2,
+  (ress) => {
+    let rawData = '';
+    ress.on('data', (dta) => {
+      rawData += dta;
+      const token = JSON.parse(rawData).data.token;
+    });
+  }
+);
+reqq.write(dataz);
+reqq.end();
+
+console.log(token);*/
+
+const app = express();
 
 app.get('/', function (req, res) {
   const url = 'http://api.cup2022.ir/api/v1/match';
   const options = {
     headers: {
-      "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkM2MwNzU3MDgxNjZkMDc4ZmMzNDEiLCJpYXQiOjE2Njk1ODQwMzIsImV4cCI6MTY2OTY3MDQzMn0.gXp3i2AenL4QHmrKABjKS6EZkmTQAG_N7Cdr0ra5Xfo',
       'Content-Type': 'application/json',
     },
   };
 
-  
   const picks = [
     {
       sheet: 'Diego',
