@@ -1,0 +1,16 @@
+{
+  "name": "world_cup",
+  "version": "1.0.0",
+  "description": "an app to list points for users in a world cup pool",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "anthony mota",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.0",
+    "read-excel-file": "^5.5.3"
+  }
+}
