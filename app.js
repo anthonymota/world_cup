@@ -76,7 +76,9 @@ function getResultz(p) {
 }
 
 const app = express();
-app.use(express.static("./app/public"))
+app.set('view engine','ejs')
+app.use(express.static('./app/public'));
+
 app.get('/', function (req, res) {
   const picks = [
     {
@@ -1511,38 +1513,38 @@ app.get('/', function (req, res) {
     },
   ];
   const results = [
-    [ 'Senegal', 0, 'Netherlands', 2 ],
-    [ 'England', 6, 'Iran', 2 ],
-    [ 'Qatar', 0, 'Ecuador', 2 ],
-    [ 'United States', 1, 'Wales', 1 ],
-    [ 'Argentina', 1, 'Saudi Arabia', 2 ],
-    [ 'Denmark', 0, 'Tunisia', 0 ],
-    [ 'Mexico', 0, 'Poland', 0 ],
-    [ 'France', 4, 'Australia', 1 ],
-    [ 'Morocco', 0, 'Croatia', 0 ],
-    [ 'Germany', 1, 'Japan', 2 ],
-    [ 'Spain', 7, 'Costa Rica', 0 ],
-    [ 'Belgium', 1, 'Canada', 0 ],
-    [ 'Brazil', 2, 'Serbia', 0 ],
-    [ 'Portugal', 3, 'Ghana', 2 ],
-    [ 'Uruguay', 0, 'South Korea', 0 ],
-    [ 'Switzerland', 1, 'Cameroon', 0 ],
-    [ 'Iran', 2, 'Wales', 0 ],
-    [ 'Qatar', 1, 'Senegal', 3 ],
-    [ 'Netherlands', 1, 'Ecuador', 1 ],
-    [ 'England', 0, 'United States', 0 ],
-    [ 'Tunisia', 0, 'Australia', 1 ],
-    [ 'Poland', 2, 'Saudi Arabia', 0 ],
-    [ 'France', 2, 'Denmark', 1 ],
-    [ 'Argentina', 2, 'Mexico', 0 ],
-    [ 'Japan', 0, 'Costa Rica', 1 ],
-    [ 'Belgium', 0, 'Morocco', 2 ],
-    [ 'Croatia', 4, 'Canada', 1 ],
-    [ 'Spain', 1, 'Germany', 1 ],
-    [ 'Serbia', 3, 'Cameroon', 3 ],
-    [ 'South Korea', 2, 'Ghana', 3 ],
-    [ 'Brazil', 1, 'Switzerland', 0 ],
-    [ 'Portugal', 2, 'Uruguay', 0 ]
+    ['Senegal', 0, 'Netherlands', 2],
+    ['England', 6, 'Iran', 2],
+    ['Qatar', 0, 'Ecuador', 2],
+    ['United States', 1, 'Wales', 1],
+    ['Argentina', 1, 'Saudi Arabia', 2],
+    ['Denmark', 0, 'Tunisia', 0],
+    ['Mexico', 0, 'Poland', 0],
+    ['France', 4, 'Australia', 1],
+    ['Morocco', 0, 'Croatia', 0],
+    ['Germany', 1, 'Japan', 2],
+    ['Spain', 7, 'Costa Rica', 0],
+    ['Belgium', 1, 'Canada', 0],
+    ['Brazil', 2, 'Serbia', 0],
+    ['Portugal', 3, 'Ghana', 2],
+    ['Uruguay', 0, 'South Korea', 0],
+    ['Switzerland', 1, 'Cameroon', 0],
+    ['Iran', 2, 'Wales', 0],
+    ['Qatar', 1, 'Senegal', 3],
+    ['Netherlands', 1, 'Ecuador', 1],
+    ['England', 0, 'United States', 0],
+    ['Tunisia', 0, 'Australia', 1],
+    ['Poland', 2, 'Saudi Arabia', 0],
+    ['France', 2, 'Denmark', 1],
+    ['Argentina', 2, 'Mexico', 0],
+    ['Japan', 0, 'Costa Rica', 1],
+    ['Belgium', 0, 'Morocco', 2],
+    ['Croatia', 4, 'Canada', 1],
+    ['Spain', 1, 'Germany', 1],
+    ['Serbia', 3, 'Cameroon', 3],
+    ['South Korea', 2, 'Ghana', 3],
+    ['Brazil', 1, 'Switzerland', 0],
+    ['Portugal', 2, 'Uruguay', 0],
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
@@ -1597,11 +1599,11 @@ app.get('/', function (req, res) {
       }
     }
   }
+
   picks.sort((a, b) => (a.points > b.points ? -1 : 1));
-  picks.forEach((pick, index) => {
-    res.write('<p>' + pick.sheet + ' ' + pick.points + '<p>');
-  });
-  res.send();
+  const imageURL = __dirname+'/public/images/king.jpg';
+  
+  res.render('results',{Results:picks})
 });
 
 app.listen(process.env.PORT || 3000, function () {

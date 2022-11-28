@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Cup Pool</title>
+</head>
+<body>
+    <style>
+        body {         
+            position: relative; 
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            margin: 0;
+            flex-direction: column;
+        }
+        
+        body::before {    
+              content: "";
+              background-image: url('soccer.jpg');
+              background-size: cover;
+              position: absolute;
+              top: 0px;
+              right: 0px;
+              bottom: 0px;
+              left: 0px;
+              opacity: 0.75;
+        }
+        
+        h1 {
+          position: relative; 
+          font-size: 3rem;
+
+        }
+        #results {
+            position: relative;
+        }
+
+    </style>
+
+    <h1>World Cup Pool </h1>
+    <div id="results">
+        <% Results.forEach((result)=>{ %>
+            <p> <%= result.sheet +' '+result.points %> </p>
+        <% }) %> 
+
+    </div>
+</body>
+</html>

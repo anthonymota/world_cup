@@ -6,13 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["heroku"],
-  "engines":{
-    "node":"18.12.1"
+  "keywords": [
+    "heroku"
+  ],
+  "engines": {
+    "node": "18.12.1"
   },
   "author": "anthony mota",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.8",
     "express": "^4.18.2",
     "node-fetch": "^3.3.0",
     "read-excel-file": "^5.5.3"
