@@ -35,10 +35,11 @@ console.log(token);*/
 
 const app = express();
 
-app.get('/world_cup', function (req, res) {
+app.get('/world_cup/', function (req, res) {
   const url = 'http://api.cup2022.ir/api/v1/match';
   const options = {
     headers: {
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkM2MwNzU3MDgxNjZkMDc4ZmMzNDEiLCJpYXQiOjE2Njk2MTgyNzUsImV4cCI6MTY2OTcwNDY3NX0.xktDIgegu6TtEIVLz3GO8spbHt0TVhTn6ovMLvESdq4',
       'Content-Type': 'application/json',
     },
   };
