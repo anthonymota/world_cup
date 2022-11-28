@@ -35,7 +35,7 @@ console.log(token);*/
 
 const app = express();
 
-app.get('/', function (req, res) {
+app.get('/world_cup', function (req, res) {
   const url = 'http://api.cup2022.ir/api/v1/match';
   const options = {
     headers: {
