@@ -5,45 +5,80 @@ const { type, hostname } = require('os');
 const readXlsxFile = require('read-excel-file/node');
 const { readSheetNames } = require('read-excel-file/node');
 
-const options2 = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  auth: 'anthony.mota5@yahoo.com:Zacatecas!415',
-};
-const dataz = JSON.stringify({
-  email: 'anthony.mota5@yahoo.com',
-  password: 'Zacatecas!415',
-});
-
-/*const reqq = http.request(
-  'http://api.cup2022.ir/api/v1/user/login',
-  options2,
-  (ress) => {
-    let rawData = '';
-    ress.on('data', (dta) => {
-      rawData += dta;
-      const token = JSON.parse(rawData).data.token;
-    });
-  }
-);
-reqq.write(dataz);
-reqq.end();
-
-console.log(token);*/
-
-const app = express();
-
-app.get('/world_cup/', function (req, res) {
+function getResultz(p) {
   const url = 'http://api.cup2022.ir/api/v1/match';
-  const options = {
+
+  const options2 = {
+    method: 'POST',
     headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkM2MwNzU3MDgxNjZkMDc4ZmMzNDEiLCJpYXQiOjE2Njk2MTgyNzUsImV4cCI6MTY2OTcwNDY3NX0.xktDIgegu6TtEIVLz3GO8spbHt0TVhTn6ovMLvESdq4',
       'Content-Type': 'application/json',
     },
   };
+  const dataz = JSON.stringify({
+    email: 'anthony.mota5@yahoo.com',
+    password: 'Zacatecas!415',
+  });
 
+  const reqq = http.request(
+    'http://api.cup2022.ir/api/v1/user/login',
+    options2,
+    (ress) => {
+      let rawData = '';
+      ress.on('data', (dta) => {
+        rawData += dta;
+        const token = JSON.parse(rawData).data.token;
+        const options = {
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+          },
+        };
+        const results = [];
+        http
+          .get(url, options, function (response) {
+            console.log(response.statusCode);
+
+            let rawData = '';
+            response.on('data', (chunk) => {
+              rawData += chunk;
+            });
+
+            response.on('end', () => {
+              const parsedData = JSON.parse(rawData);
+              console.log('');
+              console.log('');
+              function storeResults(x) {
+                for (let i = 0; i < p; i++) {
+                  results.push([
+                    x[i].home_team_en,
+                    x[i].home_score,
+                    x[i].away_team_en,
+                    x[i].away_score,
+                  ]);
+                }
+                return results;
+              }
+              storeResults(parsedData.data);
+              console.log('pen');
+              results.forEach((result) => {
+                console.log(result);
+              });
+            });
+          })
+          .on('error', (error) => {
+            console.log(error);
+          });
+      });
+    }
+  );
+  reqq.write(dataz);
+  reqq.end();
+}
+
+
+const app = express();
+
+app.get('/', function (req, res) {
   const picks = [
     {
       sheet: 'Diego',
@@ -1476,94 +1511,97 @@ app.get('/world_cup/', function (req, res) {
       points: 0,
     },
   ];
-  const results = [];
+  const results = [
+    [ 'Senegal', 0, 'Netherlands', 2 ],
+    [ 'England', 6, 'Iran', 2 ],
+    [ 'Qatar', 0, 'Ecuador', 2 ],
+    [ 'United States', 1, 'Wales', 1 ],
+    [ 'Argentina', 1, 'Saudi Arabia', 2 ],
+    [ 'Denmark', 0, 'Tunisia', 0 ],
+    [ 'Mexico', 0, 'Poland', 0 ],
+    [ 'France', 4, 'Australia', 1 ],
+    [ 'Morocco', 0, 'Croatia', 0 ],
+    [ 'Germany', 1, 'Japan', 2 ],
+    [ 'Spain', 7, 'Costa Rica', 0 ],
+    [ 'Belgium', 1, 'Canada', 0 ],
+    [ 'Brazil', 2, 'Serbia', 0 ],
+    [ 'Portugal', 3, 'Ghana', 2 ],
+    [ 'Uruguay', 0, 'South Korea', 0 ],
+    [ 'Switzerland', 1, 'Cameroon', 0 ],
+    [ 'Iran', 2, 'Wales', 0 ],
+    [ 'Qatar', 1, 'Senegal', 3 ],
+    [ 'Netherlands', 1, 'Ecuador', 1 ],
+    [ 'England', 0, 'United States', 0 ],
+    [ 'Tunisia', 0, 'Australia', 1 ],
+    [ 'Poland', 2, 'Saudi Arabia', 0 ],
+    [ 'France', 2, 'Denmark', 1 ],
+    [ 'Argentina', 2, 'Mexico', 0 ],
+    [ 'Japan', 0, 'Costa Rica', 1 ],
+    [ 'Belgium', 0, 'Morocco', 2 ],
+    [ 'Croatia', 4, 'Canada', 1 ],
+    [ 'Spain', 1, 'Germany', 1 ],
+    [ 'Serbia', 3, 'Cameroon', 3 ],
+    [ 'South Korea', 2, 'Ghana', 3 ],
+    [ 'Brazil', 1, 'Switzerland', 0 ]
+  ];
+  function searchResults(home_team, away_team) {
+    for (result of results) {
+      if (result[0] === home_team && result[2] === away_team) {
+        return result;
+      }
+    }
+  }
 
-  http
-    .get(url, options, function (response) {
-      console.log(response.statusCode);
-
-      let rawData = '';
-      response.on('data', (chunk) => {
-        rawData += chunk;
-      });
-
-      response.on('end', () => {
-        const parsedData = JSON.parse(rawData);
+  for (user of picks) {
+    console.log('');
+    console.log(user.sheet);
+    for (let t = 1; t < 32; t++) {
+      let element = user.rows[t];
+      let user_home_score = element[2];
+      let user_away_score = element[4];
+      let result = searchResults(element[1], element[3]);
+      let result_home_score = result[1];
+      let result_away_score = result[3];
+      let result_home_team = result[0];
+      let result_away_team = result[2];
+      console.log('userscore= ' + element);
+      console.log('resultscore= ' + result);
+      console.log('');
+      if (
+        user_home_score === result_home_score &&
+        user_away_score === result_away_score
+      ) {
+        console.log('YOU GOT 5 POINTS');
         console.log('');
-        console.log('');
-        function term(x) {
-          for (let i = 0; i < 29; i++) {
-            results.push([
-              x[i].home_team_en,
-              x[i].home_score,
-              x[i].away_team_en,
-              x[i].away_score,
-            ]);
-          }
-        }
-        function searchResults(home_team, away_team) {
-          for (result of results) {
-            if (result[0] === home_team && result[2] === away_team) {
-              return result;
-            }
-          }
-        }
-        term(parsedData.data);
-        for (user of picks) {
-          console.log('');
-          console.log(user.sheet);
-          for (let t = 1; t < 29; t++) {
-            let element = user.rows[t];
-            let user_home_score = element[2];
-            let user_away_score = element[4];
-            let result = searchResults(element[1], element[3]);
-            let result_home_score = result[1];
-            let result_away_score = result[3];
-            let result_home_team = result[0];
-            let result_away_team = result[2];
-            console.log('userscore= ' + element);
-            console.log('resultscore= ' + result);
+        user.points += 5;
+      } else {
+        if (result_home_score > result_away_score) {
+          if (user_home_score > user_away_score) {
+            console.log('YOU GOT 3 POINTS');
             console.log('');
-            if (
-              user_home_score === result_home_score &&
-              user_away_score === result_away_score
-            ) {
-              console.log('YOU GOT 5 POINTS');
-              console.log('');
-              user.points += 5;
-            } else {
-              if (result_home_score > result_away_score) {
-                if (user_home_score > user_away_score) {
-                  console.log('YOU GOT 3 POINTS');
-                  console.log('');
-                  user.points += 3;
-                }
-              } else if (result_away_score > result_home_score) {
-                if (user_away_score > user_home_score) {
-                  console.log('YOU GOT 3 POINTS');
-                  console.log('');
-                  user.points += 3;
-                }
-              } else {
-                if (user_away_score === user_home_score) {
-                  console.log('YOU GOT 3 POINTS');
-                  console.log('');
-                  user.points += 3;
-                }
-              }
-            }
+            user.points += 3;
+          }
+        } else if (result_away_score > result_home_score) {
+          if (user_away_score > user_home_score) {
+            console.log('YOU GOT 3 POINTS');
+            console.log('');
+            user.points += 3;
+          }
+        } else {
+          if (user_away_score === user_home_score) {
+            console.log('YOU GOT 3 POINTS');
+            console.log('');
+            user.points += 3;
           }
         }
-        picks.sort((a, b) => (a.points > b.points ? -1 : 1));
-        picks.forEach((pick, index) => {
-          res.write('<p>' + pick.sheet + ' ' + pick.points + '<p>');
-        });
-        res.send();
-      });
-    })
-    .on('error', (error) => {
-      console.log(error);
-    });
+      }
+    }
+  }
+  picks.sort((a, b) => (a.points > b.points ? -1 : 1));
+  picks.forEach((pick, index) => {
+    res.write('<p>' + pick.sheet + ' ' + pick.points + '<p>');
+  });
+  res.send();
 });
 
 app.listen(3000, function () {
