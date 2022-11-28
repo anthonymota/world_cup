@@ -59,7 +59,7 @@ function getResultz(p) {
                 return results;
               }
               storeResults(parsedData.data);
-              console.log('pen');
+              console.log('pens');
               results.forEach((result) => {
                 console.log(result);
               });
@@ -75,9 +75,8 @@ function getResultz(p) {
   reqq.end();
 }
 
-
 const app = express();
-
+app.use(express.static("./app/public"))
 app.get('/', function (req, res) {
   const picks = [
     {
@@ -1542,7 +1541,8 @@ app.get('/', function (req, res) {
     [ 'Spain', 1, 'Germany', 1 ],
     [ 'Serbia', 3, 'Cameroon', 3 ],
     [ 'South Korea', 2, 'Ghana', 3 ],
-    [ 'Brazil', 1, 'Switzerland', 0 ]
+    [ 'Brazil', 1, 'Switzerland', 0 ],
+    [ 'Portugal', 2, 'Uruguay', 0 ]
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
@@ -1555,7 +1555,7 @@ app.get('/', function (req, res) {
   for (user of picks) {
     console.log('');
     console.log(user.sheet);
-    for (let t = 1; t < 32; t++) {
+    for (let t = 1; t < 33; t++) {
       let element = user.rows[t];
       let user_home_score = element[2];
       let user_away_score = element[4];
