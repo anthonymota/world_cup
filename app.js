@@ -4,6 +4,7 @@ const { url } = require('inspector');
 const { type, hostname } = require('os');
 const readXlsxFile = require('read-excel-file/node');
 const { readSheetNames } = require('read-excel-file/node');
+const path = require('path');
 
 function getResultz(p) {
   const url = 'http://api.cup2022.ir/api/v1/match';
@@ -76,8 +77,8 @@ function getResultz(p) {
 }
 
 const app = express();
-app.set('view engine','ejs')
-app.use(express.static('./app/public'));
+app.set('view engine', 'ejs');
+app.use(express.static('./world_cup/public'));
 
 app.get('/', function (req, res) {
   const picks = [
@@ -1545,6 +1546,8 @@ app.get('/', function (req, res) {
     ['South Korea', 2, 'Ghana', 3],
     ['Brazil', 1, 'Switzerland', 0],
     ['Portugal', 2, 'Uruguay', 0],
+    ['Ecuador', 1, 'Senegal', 2],
+    ['Netherlands', 2, 'Qatar', 0],
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
@@ -1557,7 +1560,7 @@ app.get('/', function (req, res) {
   for (user of picks) {
     console.log('');
     console.log(user.sheet);
-    for (let t = 1; t < 33; t++) {
+    for (let t = 1; t < 35; t++) {
       let element = user.rows[t];
       let user_home_score = element[2];
       let user_away_score = element[4];
@@ -1601,9 +1604,9 @@ app.get('/', function (req, res) {
   }
 
   picks.sort((a, b) => (a.points > b.points ? -1 : 1));
-  const imageURL = __dirname+'/public/images/king.jpg';
-  
-  res.render('results',{Results:picks})
+  const imageURL = __dirname + '/public/images/king.jpg';
+
+  res.render('results', { Results: picks });
 });
 
 app.listen(process.env.PORT || 3000, function () {
