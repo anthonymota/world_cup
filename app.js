@@ -78,7 +78,7 @@ function getResultz(p) {
 
 const app = express();
 app.set('view engine', 'ejs');
-app.use(express.static('./world_cup/public'));
+app.use('/public',express.static(path.join(__dirname,'/public')));
 
 app.get('/', function (req, res) {
   const picks = [

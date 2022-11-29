@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Cup Pool</title>
+    <link href='https://fonts.googleapis.com/css?family=Kalam' rel='stylesheet'>
 </head>
 <body>
     <style>
         body {         
-            background-image: url("../public/images/soccer.jpg");
             background-position: center;
             position: relative; 
             background-size: cover;
@@ -18,18 +18,19 @@
             display: flex;
             margin: 0;
             flex-direction: column;
+            font-family: 'Kalam';font-size: 22px;
         }
         
         body::before {    
               content: "";
-              background-image: url('soccer.jpg');
+              background-image: url("../public/images/soccer.jpg");
               background-size: cover;
               position: absolute;
               top: 0px;
               right: 0px;
               bottom: 0px;
               left: 0px;
-              opacity: 0.75;
+              opacity: .6;
         }
         
         h1 {
@@ -39,6 +40,7 @@
         }
         #results {
             position: relative;
+            
         }
 
     </style>
