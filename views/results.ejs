@@ -45,14 +45,33 @@
         p {
             padding: 5px;
         }
+        #top5 {
+            margin-left: 10px;
+            border: 2px dotted blue;
+            color: blue;
+            width: 100px;
+        }
+
+        #results h4 {
+            margin-left: 20px;
+            text-decoration: underline;
+            font-size: 30px;
+            margin-bottom: 0px;
+        }
     </style>
 
     <h1>World Cup Pool </h1>
     <div id="results">
-        <% Results.forEach((result)=>{ %>
-            <p> <%= result.sheet +' '+result.points %> </p>
-        <% }) %> 
-
+        <h4>Top 5</h4>
+        <div id="top5">
+            <% for (let index = 0; index < 5; index++) { %>
+                <p><%= Results[index].sheet+' '+Results[index].points %></p>
+            <% } %> 
+        </div>  
+        <% for (let i = 5; i < Results.length; i++) { %>
+            <p><%= Results[i].sheet+' '+Results[i].points %></p>
+        <% } %> 
     </div>
 </body>
 </html>
+
