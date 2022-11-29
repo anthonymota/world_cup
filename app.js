@@ -78,7 +78,7 @@ function getResultz(p) {
 
 const app = express();
 app.set('view engine', 'ejs');
-app.use('/public',express.static(path.join(__dirname,'/public')));
+app.use('/public', express.static(path.join(__dirname, '/public')));
 
 app.get('/', function (req, res) {
   const picks = [
@@ -1546,6 +1546,8 @@ app.get('/', function (req, res) {
     ['South Korea', 2, 'Ghana', 3],
     ['Brazil', 1, 'Switzerland', 0],
     ['Portugal', 2, 'Uruguay', 0],
+    ['England', 3, 'Wales', 0],
+    ['Iran', 0, 'United States', 1],
     ['Ecuador', 1, 'Senegal', 2],
     ['Netherlands', 2, 'Qatar', 0],
   ];
@@ -1560,7 +1562,7 @@ app.get('/', function (req, res) {
   for (user of picks) {
     console.log('');
     console.log(user.sheet);
-    for (let t = 1; t < 35; t++) {
+    for (let t = 1; t < 37; t++) {
       let element = user.rows[t];
       let user_home_score = element[2];
       let user_away_score = element[4];
