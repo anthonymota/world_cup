@@ -60,7 +60,7 @@ function getResultz(p) {
                 return results;
               }
               storeResults(parsedData.data);
-              console.log('pens');
+              console.log('apple');
               results.forEach((result) => {
                 console.log(result);
               });
@@ -1550,6 +1550,8 @@ app.get('/', function (req, res) {
     ['Iran', 0, 'United States', 1],
     ['Ecuador', 1, 'Senegal', 2],
     ['Netherlands', 2, 'Qatar', 0],
+    ['Denmark', 0, 'Australia', 1],
+    ['Tunisia', 1, 'France', 0]
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
@@ -1562,7 +1564,7 @@ app.get('/', function (req, res) {
   for (user of picks) {
     console.log('');
     console.log(user.sheet);
-    for (let t = 1; t < 37; t++) {
+    for (let t = 1; t < 39; t++) {
       let element = user.rows[t];
       let user_home_score = element[2];
       let user_away_score = element[4];
