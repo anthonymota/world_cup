@@ -75,7 +75,7 @@ function getResultz(p) {
   reqq.write(dataz);
   reqq.end();
 }
-getResultz(38)
+
 const app = express();
 app.set('view engine', 'ejs');
 app.use('/public', express.static(path.join(__dirname, '/public')));
@@ -1551,11 +1551,13 @@ app.get('/', function (req, res) {
     ['Ecuador', 1, 'Senegal', 2],
     ['Netherlands', 2, 'Qatar', 0],
     ['Denmark', 0, 'Australia', 1],
-    ['Tunisia', 1, 'France', 0]
+    ['Tunisia', 1, 'France', 0,],
+    ['Mexico', 2, 'Saudi Arabia', 1],
+    ['Argentina', 2, 'Poland', 0]
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
-      if (result[0] === home_team && result[2] === away_team) {
+      if (result.includes(home_team) && result.includes(away_team)) {
         return result;
       }
     }
@@ -1564,15 +1566,13 @@ app.get('/', function (req, res) {
   for (user of picks) {
     console.log('');
     console.log(user.sheet);
-    for (let t = 1; t < 39; t++) {
+    for (let t = 1; t < 41; t++) {
       let element = user.rows[t];
       let user_home_score = element[2];
       let user_away_score = element[4];
       let result = searchResults(element[1], element[3]);
-      let result_home_score = result[1];
-      let result_away_score = result[3];
-      let result_home_team = result[0];
-      let result_away_team = result[2];
+      let result_home_score = result[result.indexOf(element[1])+1]
+      let result_away_score = result[result.indexOf(element[3])+1];
       console.log('userscore= ' + element);
       console.log('resultscore= ' + result);
       console.log('');
