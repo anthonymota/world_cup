@@ -54,9 +54,16 @@
             font-size: 30px;
             margin-bottom: 0px;
         }
+        #firstplace img {
+            height: 20px;
+            position: relative;
+            left: 7px;
+        }
+
         img {
             height: 20px;
-            
+            position: relative;
+
         }
     </style>
 
@@ -64,7 +71,7 @@
     <div id="results">
         <h4>Top 5</h4>
         <div id="top5">
-            <div id="1stplace">
+            <div id="firstplace">
                 <img src="../public/images/crown.png">
                 <%= Results[0].sheet+' '+Results[0].points %>
             </div>
@@ -72,9 +79,10 @@
                 <p><%= Results[index].sheet+' '+Results[index].points %></p>
             <% } %> 
         </div>  
-        <% for (let i = 5; i < Results.length; i++) { %>
+        <% for (let i = 5; i < Results.length-1; i++) { %>
             <p><%= Results[i].sheet+' '+Results[i].points %></p>
         <% } %> 
+        <p><img src="../public/images/skull.png"><%= Results[Results.length-1].sheet+' '+Results[Results.length-1].points %></p>
     </div>
 </body>
 </html>
