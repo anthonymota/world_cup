@@ -1556,6 +1556,8 @@ app.get('/', function (req, res) {
     ['Argentina', 2, 'Poland', 0],
     ['Croatia', 0, 'Belgium', 0],
     ['Morocco', 2, 'Canada', 1],
+    ['Costa Rica', 2, 'Germany', 4],
+    ['Japan', 2, 'Spain', 1],
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
@@ -1568,12 +1570,11 @@ app.get('/', function (req, res) {
   for (user of picks) {
     console.log('');
     console.log(user.sheet);
-    for (let t = 1; t < 43; t++) {
+    for (let t = 1; t < 45; t++) {
       let element = user.rows[t];
       let user_home_score = element[2];
       let user_away_score = element[4];
       let result = searchResults(element[1], element[3]);
-      console.log(result);
       let result_home_score = result[result.indexOf(element[1]) + 1];
       let result_away_score = result[result.indexOf(element[3]) + 1];
       console.log('userscore= ' + element);
