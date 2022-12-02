@@ -967,7 +967,7 @@ app.get('/', function (req, res) {
       rows: [
         ['id', 'home_team', 'home_score', 'away_team', 'away_score'],
         [3, 'Senegal', 1, 'Netherlands', 2],
-        [2, 'England', 2, 'Iran', 2],
+        [2, 'England', 2, 'Iran', 0],
         [1, 'Qatar', 0, 'Ecuador', 1],
         [4, 'United States', 1, 'Wales', 0],
         [5, 'Argentina', 3, 'Saudi Arabia', 1],
@@ -1558,8 +1558,9 @@ app.get('/', function (req, res) {
     ['Morocco', 2, 'Canada', 1],
     ['Costa Rica', 2, 'Germany', 4],
     ['Japan', 2, 'Spain', 1],
-    ['South Korea', 2, 'Portugal', 1],
     ['Uruguay', 2, 'Ghana', 0],
+    ['South Korea', 2, 'Portugal', 1],
+
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
