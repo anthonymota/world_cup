@@ -967,7 +967,7 @@ app.get('/', function (req, res) {
       rows: [
         ['id', 'home_team', 'home_score', 'away_team', 'away_score'],
         [3, 'Senegal', 1, 'Netherlands', 2],
-        [2, 'England', 2, 'Iran', 2],
+        [2, 'England', 2, 'Iran', 0],
         [1, 'Qatar', 0, 'Ecuador', 1],
         [4, 'United States', 1, 'Wales', 0],
         [5, 'Argentina', 3, 'Saudi Arabia', 1],
@@ -1572,7 +1572,7 @@ app.get('/', function (req, res) {
   for (user of picks) {
     console.log('');
     console.log(user.sheet);
-    for (let t = 1; t < 45; t++) {
+    for (let t = 1; t < 47; t++) {
       let element = user.rows[t];
       let user_home_score = element[2];
       let user_away_score = element[4];
