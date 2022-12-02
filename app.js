@@ -1560,6 +1560,7 @@ app.get('/', function (req, res) {
     ['Japan', 2, 'Spain', 1],
     ['Uruguay', 2, 'Ghana', 0],
     ['South Korea', 2, 'Portugal', 1],
+
   ];
   function searchResults(home_team, away_team) {
     for (result of results) {
